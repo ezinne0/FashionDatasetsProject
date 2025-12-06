@@ -1,7 +1,7 @@
 package fashionrelations.common;
 
 public class ConsumerBehavior {
-//testing
+    //testing
     private int age;
     private String gender;
     private String itemPurchased;
@@ -26,5 +26,43 @@ public class ConsumerBehavior {
         this.size = size;
         this.color = color;
         this.season = season;
+    }
+
+    // getters
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getItemPurchased() {
+        return itemPurchased;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public double getPurchaseAmount() {
+        return purchaseAmount;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getSeason() {
+        return season;
     }
 }

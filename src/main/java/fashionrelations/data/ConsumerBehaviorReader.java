@@ -32,7 +32,7 @@ public class ConsumerBehaviorReader {
             String gender = (String) jsonObject.get("Gender");
             String itemPurchased = (String) jsonObject.get("Item Purchased");
             String category = (String) jsonObject.get("Category");
-            int purchaseAmount = ((Long) jsonObject.get("Purchase Amount")).intValue();
+            int purchaseAmount = ((Long) jsonObject.get("Purchase Amount (USD)")).intValue();
             String location = (String) jsonObject.get("Location");
             String size = (String) jsonObject.get("Size");
             String color = (String) jsonObject.get("Color");
