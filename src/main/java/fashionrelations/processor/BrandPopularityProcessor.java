@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class BrandPopularityProcessor {
 
-    public String getMostPopularWinterBrand(List<WinterFashionTrend> winterData) {
+    public String getPopWinterBrand(List<WinterFashionTrend> winterData) {
 
         if (winterData == null || winterData.isEmpty()) {
             return "No data";
@@ -38,7 +38,7 @@ public class BrandPopularityProcessor {
     }
 
 
-    public String getMostPopularNonWinterBrand(List<FashionBoutique> boutiqueData) {
+    public String getPopNonWinterBrand(List<FashionBoutique> boutiqueData) {
 
         if (boutiqueData == null || boutiqueData.isEmpty()) {
             return "No data";
