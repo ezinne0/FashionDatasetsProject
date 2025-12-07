@@ -5,13 +5,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class fashionBoutiqueJSONReader implements fashionBoutiqueReader {
 
-    @Override
+    // interfaces are instance method by default, so the extension cannot be static
     public List<FashionBoutique> readBoutique(String filename){
         //list to store all boutique items read from json file
         List<FashionBoutique> boutiqueData = new ArrayList<>();
