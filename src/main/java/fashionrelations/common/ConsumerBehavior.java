@@ -1,7 +1,7 @@
 package fashionrelations.common;
 
 public class ConsumerBehavior {
-
+//testing
     private int age;
     private String gender;
     private String itemPurchased;
