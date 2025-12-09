@@ -1,3 +1,5 @@
+// Processor for operation that outputs most popular szn brand
+
 package fashionrelations.processor;
 import fashionrelations.common.FashionBoutique;
 import fashionrelations.common.WinterFashionTrend;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 public class BrandPopularityProcessor {
 
+    // Gets most popular winter brand
     public String getPopWinterBrand(List<WinterFashionTrend> winterData) {
 
         if (winterData == null || winterData.isEmpty()) {
@@ -22,7 +25,7 @@ public class BrandPopularityProcessor {
             brandCount.put(brand, brandCount.getOrDefault(brand, 0) + 1);
         }
 
-        // Find brand with max count
+        // Finds brand with max count
         String topBrand = null;
         int max = 0;
 
@@ -37,7 +40,7 @@ public class BrandPopularityProcessor {
         return topBrand;
     }
 
-
+    // Gets most popular non-winter brand
     public String getPopNonWinterBrand(List<FashionBoutique> boutiqueData) {
 
         if (boutiqueData == null || boutiqueData.isEmpty()) {
@@ -48,7 +51,7 @@ public class BrandPopularityProcessor {
 
         for (FashionBoutique item : boutiqueData) {
 
-            // skip winter – we want other seasons
+            // skips winter
             if ("Winter".equalsIgnoreCase(item.getSeason())) {
                 continue;
             }
@@ -59,7 +62,7 @@ public class BrandPopularityProcessor {
             brandCount.put(brand, brandCount.getOrDefault(brand, 0) + 1);
         }
 
-        // Find brand with max count
+        // Finds brand with max count
         String topBrand = null;
         int max = 0;
 

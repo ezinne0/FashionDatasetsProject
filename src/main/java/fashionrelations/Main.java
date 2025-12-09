@@ -2,6 +2,12 @@ package fashionrelations;
 
 import fashionrelations.common.WinterFashionTrend;
 import fashionrelations.data.WinterFashionTrendsDataReader;
+import fashionrelations.common.ConsumerBehavior;
+import fashionrelations.data.ConsumerBehaviorReader;
+import fashionrelations.processor.ConsumerBehaviorProcessor;
+import fashionrelations.processor.BrandPopularityProcessor;
+import fashionrelations.data.fashionBoutiqueJSONReader;
+import fashionrelations.common.FashionBoutique;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -25,7 +31,7 @@ public class Main {
 //            System.out.println("-------------------------------");
 //
 //        }
-
+/*
         WinterFashionTrendsDataReader wftreader = new WinterFashionTrendsDataReader();
         List<WinterFashionTrend> list = wftreader.read("WinterFashionTrendsDS.json");
 
@@ -38,5 +44,32 @@ public class Main {
             System.out.println("-------------------------------");
 
         }
+    }
+
+ */
+    // Average Age Operation
+    List<ConsumerBehavior> consumers = ConsumerBehaviorReader.readData("consumerdataset.json");
+    ConsumerBehaviorProcessor processor = new ConsumerBehaviorProcessor();
+    double avgAge = processor.getAverageAge(consumers);
+
+    System.out.println("Average Age of Consumers: " + avgAge);
+
+        //--For Comparing Most Popular Winter Brand vs Non-Winter Brand--
+
+        // Reads Winter Dataset
+        WinterFashionTrendsDataReader wftreader = new WinterFashionTrendsDataReader();
+        List<WinterFashionTrend> winterList = wftreader.read("WinterFashionTrendsDS.json");
+
+        // Reads Boutique Dataset
+        fashionBoutiqueJSONReader boutiqueReader = new fashionBoutiqueJSONReader();
+        List<FashionBoutique> boutiqueList = boutiqueReader.readBoutique("fashionBoutiqueDS.json");
+
+        // Processor
+        BrandPopularityProcessor brandProcessor = new BrandPopularityProcessor();
+
+        String winterBrand = brandProcessor.getPopWinterBrand(winterList);
+        String nonWinterBrand = brandProcessor.getPopNonWinterBrand(boutiqueList);
+        System.out.println("Most Popular Winter Brand: " + winterBrand);
+        System.out.println("Most Popular Non-Winter Brand: " + nonWinterBrand);
     }
 }

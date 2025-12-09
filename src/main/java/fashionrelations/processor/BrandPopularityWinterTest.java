@@ -1,3 +1,5 @@
+// Unit tests for operation that outputs most popular winter szn brand
+
 package fashionrelations.processor;
 
 import fashionrelations.common.WinterFashionTrend;

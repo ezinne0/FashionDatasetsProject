@@ -1,3 +1,5 @@
+// Unit tests for operation that calculates the average age of all consumers
+
 package fashionrelations.processor;
 
 import fashionrelations.common.ConsumerBehavior;
