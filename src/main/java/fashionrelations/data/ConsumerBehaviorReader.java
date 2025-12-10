@@ -28,11 +28,18 @@ public class ConsumerBehaviorReader {
         for (Object o : jsonArray) {
             JSONObject jsonObject = (JSONObject) o;
 
-            int age = ((Long) jsonObject.get("Age")).intValue();
+            //int age = ((Integer) jsonObject.get("Age")).intValue();
+            Number ageNumber = (Number) jsonObject.get("Age");
+            int age = ageNumber.intValue();
+
             String gender = (String) jsonObject.get("Gender");
             String itemPurchased = (String) jsonObject.get("Item Purchased");
             String category = (String) jsonObject.get("Category");
-            int purchaseAmount = ((Long) jsonObject.get("Purchase Amount")).intValue();
+
+            // int purchaseAmount = ((Integer) jsonObject.get("Purchase Amount")).intValue();
+            Number purchaseAmountNumber = (Number) jsonObject.get("Purchase Amount (USD)");
+            double purchaseAmount = purchaseAmountNumber.doubleValue();
+
             String location = (String) jsonObject.get("Location");
             String size = (String) jsonObject.get("Size");
             String color = (String) jsonObject.get("Color");

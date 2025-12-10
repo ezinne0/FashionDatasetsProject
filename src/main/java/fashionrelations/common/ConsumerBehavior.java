@@ -27,4 +27,16 @@ public class ConsumerBehavior {
         this.color = color;
         this.season = season;
     }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getColor() {
+        return color;
+    }
 }

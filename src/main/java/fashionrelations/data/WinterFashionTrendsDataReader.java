@@ -36,6 +36,9 @@ public class WinterFashionTrendsDataReader {
             String style = (String) jsonObject.get("Style");
             String gender = (String) jsonObject.get("Gender");
             String season = (String) jsonObject.get("Season");
+            Number priceNumber = (Number) jsonObject.get("Price(USD)"); // Valeria changed this.
+            double price = priceNumber.doubleValue();
+
 //            double price = (double) jsonObject.get("Price(USD)");
 //            double popularity = (double) jsonObject.get("Popularity_Score");
 

@@ -1,13 +1,17 @@
 package fashionrelations;
 
+import fashionrelations.common.ConsumerBehavior;
 import fashionrelations.common.FashionBoutique;
 import fashionrelations.common.WinterFashionTrend;
+import fashionrelations.data.ConsumerBehaviorReader;
 import fashionrelations.data.WinterFashionTrendsDataReader;
 import fashionrelations.data.fashionBoutiqueJSONReader;
 import fashionrelations.processor.SortWFT;
+import fashionrelations.processor.WinterColorAnalysis;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -30,12 +34,12 @@ public class Main {
             List<FashionBoutique> fashionBoutiqueData = // unsure ab this...
                     fb.readBoutique("FashionBoutiqueDS.json");
 
-            // jessicas' dataset here
+            List<ConsumerBehavior> consumerData = ConsumerBehaviorReader.readData("consumerdataset.json");
 
             // Display menu
             System.out.println("Choose an operation (1 - 7):");
             System.out.println("1. Sort Winter Fashion Trends by Most Popular Materials");
-            System.out.println("2. Operation 2");
+            System.out.println("2. Average Winter Color by Gender");
             System.out.println("3. Operation 3");
             System.out.println("4. Operation 4");
             System.out.println("5. Operation 5");
@@ -50,15 +54,20 @@ public class Main {
                     System.out.println("\nSorting by most popular materials...");
                     SortWFT.sortWFTByMaterials(WFTData);
 
-                    // Print results (optional)
+                    // Print results
                     for (WinterFashionTrend w : WFTData) {
                         System.out.println(w.getMaterial() + " - " + w.getBrand());
                     }
                     break;
 
                 case 2:
-                    System.out.println("You selected Operation 2.");
-                    // call operation 2 processor class here
+                    // call the method from the processor
+                    Map<String, String> colorResults =
+                            WinterColorAnalysis.getAvgWinterColorByGender(WFTData, consumerData);
+
+                    // print the results
+                    System.out.println("Most common winter color worn by men: " + colorResults.get("Male"));
+                    System.out.println("Most common winter color worn by women: " + colorResults.get("Female"));
                     break;
 
                 case 3:
@@ -91,9 +100,9 @@ public class Main {
     }
 
 //        fashionBoutiqueJSONReader reader = new fashionBoutiqueJSONReader();
-//        List<fashionBoutique> items = reader.readBoutique("fashionBoutiqueDS.json");
+//        List<FashionBoutique> items = reader.readBoutique("fashionBoutiqueDS.json");
 //
-//        for(fashionBoutique fb : items){
+//        for(FashionBoutique fb : items){
 //            System.out.println("Category: " + fb.getCategory());
 //            System.out.println("Brand: " + fb.getBrand());
 //            System.out.println("Season: " + fb.getSeason());

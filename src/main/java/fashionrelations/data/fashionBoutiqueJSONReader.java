@@ -1,10 +1,11 @@
 package fashionrelations.data;
 
+//my doc
 import fashionrelations.common.FashionBoutique;
+import fashionrelations.common.Season;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class fashionBoutiqueJSONReader implements fashionBoutiqueReader {
 
-    // interfaces are instance method by default, so the extension cannot be static
+    @Override
     public List<FashionBoutique> readBoutique(String filename){
         //list to store all boutique items read from json file
         List<FashionBoutique> boutiqueData = new ArrayList<>();
@@ -33,7 +34,23 @@ public class fashionBoutiqueJSONReader implements fashionBoutiqueReader {
                 //extract all string fields from json
                 String category = (String) item.get("category");
                 String brand = (String) item.get("brand");
-                String season = (String) item.get("season");
+                String seasonString = (String) item.get("season");
+                //this does not work because it does not check null
+                //Season season = Season.valueOf(seasonString.toUpperCase());
+                Season season = null;
+
+                //skip if null
+                if(seasonString == null){
+                    continue;
+                }
+                //fixing for invalid or null season
+                try{
+                    season = Season.valueOf(seasonString.toUpperCase());
+                } catch (Exception e) {
+                    //System.out.println("Skipping item with invalid season: " + seasonString);
+                    continue; // skip this row safely
+                }
+
                 String size = (String) item.get("size");
                 String color = (String) item.get("color");
 
@@ -57,3 +74,7 @@ public class fashionBoutiqueJSONReader implements fashionBoutiqueReader {
         return boutiqueData;
     }
 }
+
+
+
+
