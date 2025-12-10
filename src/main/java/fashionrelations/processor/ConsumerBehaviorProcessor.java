@@ -3,6 +3,8 @@
 package fashionrelations.processor;
 
 import fashionrelations.common.ConsumerBehavior;
+import fashionrelations.common.ConsumerIterator;
+import fashionrelations.common.ConsumerBehaviorIterator;
 import java.util.List;
 
 public class ConsumerBehaviorProcessor {
@@ -21,9 +23,11 @@ public class ConsumerBehaviorProcessor {
             return 0;
         }
 
+        ConsumerIterator iterator = new ConsumerBehaviorIterator(consumers);
         int total = 0;
 
-        for (ConsumerBehavior cb : consumers) {
+        while (iterator.hasNext()) {
+            ConsumerBehavior cb = iterator.next();
             total += cb.getAge();
         }
 
@@ -34,4 +38,4 @@ public class ConsumerBehaviorProcessor {
         cachedAverageAge = avg;
         return avg;
     }
-}
+ }
