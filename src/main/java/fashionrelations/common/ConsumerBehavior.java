@@ -39,4 +39,8 @@ public class ConsumerBehavior {
     public String getColor() {
         return color;
     }
+
+    public int getAge(){
+        return age;
+    }
 }
