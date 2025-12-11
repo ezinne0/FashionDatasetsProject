@@ -92,15 +92,17 @@ public class Main {
                         // Print unique materials with percentages
                         System.out.println("Material | Percentage");
                         for (Map.Entry<String, Integer> entry : materialFrequency.entrySet()) {
+                            // recall that entrySet() returns a Set of all the key-value pairs in a Map; thus, I can iterate
                             String material = entry.getKey();
+                            // save the material's percentage
                             double percentage = (entry.getValue() * 100.0) / total;
-                            // fancy f-string formatting so it's easy on the eyes
-                            System.out.println(material + " — " + String.format("%.2f", percentage) + "%");
+                            // print it
+                            System.out.println(material + " — " +  percentage + "%");
                         }
                         break;
 
                     case "2":
-                        // call the method from the processor
+                        // call the method from the processor; store in map
                         Map<String, String> colorResults =
                                 WinterColorAnalysis.getAvgWinterColorByGender(WFTData, consumerData);
 

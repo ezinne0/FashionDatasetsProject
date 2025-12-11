@@ -4,6 +4,8 @@ import fashionrelations.common.WinterFashionTrend;
 
 import java.util.*;
 
+// sorts Winter Fashion Trends by most popular materials
+// uses Singleton
 public class SortWFT {
 
     // singleton implementation
@@ -23,7 +25,7 @@ public class SortWFT {
     // method takes in list of WinterFashionTrendObjects
     public static void sortWFTByMaterials(List<WinterFashionTrend> trends) {
 
-        // use Map to count occurrences of each material
+        // use a map to count occurrences of each material
         Map<String, Integer> materialFrequency = new HashMap<>();
 
         // loop through WFT Objects and count frequency of material used
@@ -35,7 +37,7 @@ public class SortWFT {
         // Sort using Comparator: materials with higher frequency come first
         // this compares two WFT Objects at a time (wft1, wft2)
         // materialFrequency.getorDefault gets material's frequency OR assigns it a default val of zero
-        trends.sort((wft1, wft2) -> { // this is lambdaaa i think
+        trends.sort((wft1, wft2) -> { // this is lambdaaa
             int freq1 = materialFrequency.getOrDefault(wft1.getMaterial(), 0);
             int freq2 = materialFrequency.getOrDefault(wft2.getMaterial(), 0);
 

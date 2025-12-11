@@ -15,6 +15,7 @@ public class AvgFashionPrices {
     Computes the average original price for winter items vs non winter items
     uses streams to filter by season and then averages the price lists
      */
+    // uses lamba and streams
 
     public static WinterComparison computeWinterComparison(List<FashionBoutique> data){
         //using streams and lambda expressions

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WinterColorAnalysisTest {
 
-    // Test ideal scenario with both datasets and clear male/female colors
+    // Test the ideal scenario: both datasets have  clear male/female colors
     @Test
     void testAvgWinterColorNormal() {
         List<WinterFashionTrend> wft = new ArrayList<>();
@@ -30,7 +30,7 @@ class WinterColorAnalysisTest {
         assertEquals("Blue", result.get("Female"));
     }
 
-    // Test empty datasets returns N/A for both genders
+    // Test that empty datasets returns N/A for both genders
     @Test
     void testEmptyDatasets() {
         Map<String, String> result = WinterColorAnalysis.getAvgWinterColorByGender(new ArrayList<>(), new ArrayList<>());
@@ -52,7 +52,8 @@ class WinterColorAnalysisTest {
         assertEquals("N/A", result.get("Female"));
     }
 
-    // Test gender variations (man, men, woman, women)
+    // Test different ways of specifying gender (man, men, woman, women)
+    // program should be able to differentiate
     @Test
     void testGenderVariations() {
         List<WinterFashionTrend> wft = new ArrayList<>();
@@ -83,7 +84,7 @@ class WinterColorAnalysisTest {
         assertEquals("N/A", result.get("Female"));
     }
 
-    // Test tie in colors — should pick any max (deterministic in small maps)
+    // Test a tie in colors (should pick either one of the top colors)
     @Test
     void testColorTie() {
         List<WinterFashionTrend> wft = new ArrayList<>();
@@ -92,7 +93,7 @@ class WinterColorAnalysisTest {
 
         Map<String, String> result = WinterColorAnalysis.getAvgWinterColorByGender(wft, new ArrayList<>());
 
-        // either Red or Blue is valid
+        // Red OR Blue is valid
         assertTrue(result.get("Male").equals("Red") || result.get("Male").equals("Blue"));
         assertEquals("N/A", result.get("Female"));
     }

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+    // most popular color in winter worn by men vs women
 public class WinterColorAnalysis {
     // this operation aggregates the WinterFashionTrends and ConsumerBehaviors Datasets
     // gets average (across two datasets) of most common winter color worn by men vs. women
@@ -28,7 +29,7 @@ public class WinterColorAnalysis {
             String gender = t.getGender().toLowerCase();
             String color = t.getColor();
 
-            // any missing info? skip that iteration #errorHandled
+            // any missing info? skip that iteration #errorHandled.
             if (gender == null || color == null) continue;
 
             // add counts in maps based on gender
@@ -40,7 +41,7 @@ public class WinterColorAnalysis {
             }
         }
 
-        // PROCESS CONSUMER BEHAVIOR DATASET
+        // PROCESS CONSUMER BEHAVIOR DATASET (same as above)
         for (ConsumerBehavior c : consumers) {
             // Only include winter items
             if (c.getSeason() == null || !c.getSeason().toLowerCase().contains("winter")) continue;
@@ -64,10 +65,10 @@ public class WinterColorAnalysis {
         // prepare the final output map
         Map<String, String> result = new HashMap<>();
 
-        // Calculate most common color among women
+        // Calculate most common color among women based on the map(using helper method below)
         result.put("Female", getMostCommonColor(femaleColorFreq));
 
-        // Calculate most common color among men
+        // Calculate most common color among men based on the map (using helper method below)
         result.put("Male", getMostCommonColor(maleColorFreq));
 
         return result;
