@@ -2,12 +2,14 @@ package fashionrelations;
 
 import fashionrelations.common.ConsumerBehavior;
 import fashionrelations.common.FashionBoutique;
+import fashionrelations.common.Season;
 import fashionrelations.common.WinterFashionTrend;
 import fashionrelations.data.ConsumerBehaviorReader;
+import fashionrelations.data.WinterComparison;
 import fashionrelations.data.WinterFashionTrendsDataReader;
 import fashionrelations.data.fashionBoutiqueJSONReader;
-import fashionrelations.processor.SortWFT;
-import fashionrelations.processor.WinterColorAnalysis;
+import fashionrelations.processor.*;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,13 +23,24 @@ public class Main {
 
         fashionBoutiqueJSONReader fb = new fashionBoutiqueJSONReader();
 
-
-
         try {
             // Load datasets only once
             // don't have to instantiate static class
             List<WinterFashionTrend> WFTData =
                     WinterFashionTrendsDataReader.read("WinterFashionTrendsDS.json");
+
+            // instantiating Valeria's things
+            List<WinterFashionTrend> originalWinterData;
+            List<WinterFashionTrend> winterData;
+
+            try {
+                winterData = WinterFashionTrendsDataReader.read("WinterFashionTrendsDS.json");
+            } catch (Exception e) {
+                System.out.println("Error reading JSON: " + e.getMessage());
+                return;
+            }
+            originalWinterData = winterData;
+
 
             // this non-static class, we had to create an instance of it (above). Java then creates
             // a default constructor for us to use
@@ -35,97 +48,110 @@ public class Main {
                     fb.readBoutique("FashionBoutiqueDS.json");
 
             List<ConsumerBehavior> consumerData = ConsumerBehaviorReader.readData("consumerdataset.json");
+            ConsumerBehaviorProcessor processor = new ConsumerBehaviorProcessor();
 
-            // Display menu
-            System.out.println("Choose an operation (1 - 7):");
-            System.out.println("1. Sort Winter Fashion Trends by Most Popular Materials");
-            System.out.println("2. Average Winter Color by Gender");
-            System.out.println("3. Operation 3");
-            System.out.println("4. Operation 4");
-            System.out.println("5. Operation 5");
-            System.out.println("6. Operation 6");
-            System.out.println("7. Operation 7");
-            System.out.print("Enter your choice: ");
+            BrandPopularityProcessor brandProcessor = new BrandPopularityProcessor();
 
-            int choice = scanner.nextInt();
+            while(true){
+                // Display menu
+                System.out.println("\nChoose an operation (1 - 7) \nEnter 8 to EXIT:");
+                System.out.println("1. Sort Winter Fashion Trends by Most Popular Materials");
+                System.out.println("2. Average Winter Color by Gender");
+                System.out.println("3. Brands Comparison of Average Price for Winter vs. Non-Winter");
+                System.out.println("4. Color Trends Across All Seasons");
+                System.out.println("5. Filter Items Sold By Year and Brand");
+                System.out.println("6. Average Age of Consumers");
+                System.out.println("7. Most Popular Winter vs. Non-Winter Brands");
+                System.out.println("8. EXIT");
+                System.out.print("Enter your choice: ");
 
-            switch (choice) {
-                case 1:
-                    System.out.println("\nSorting by most popular materials...");
-                    SortWFT.sortWFTByMaterials(WFTData);
+                String choice = scanner.nextLine().trim();
 
-                    // Print results
-                    for (WinterFashionTrend w : WFTData) {
-                        System.out.println(w.getMaterial() + " - " + w.getBrand());
-                    }
+                if (choice.equals("8") || choice.equalsIgnoreCase("exit")) {
+                    System.out.println("Goodbye!");
                     break;
+                }
 
-                case 2:
-                    // call the method from the processor
-                    Map<String, String> colorResults =
-                            WinterColorAnalysis.getAvgWinterColorByGender(WFTData, consumerData);
+                switch (choice) {
+                    case "1":
+                        System.out.println("\nSorting by most popular materials...");
+                        SortWFT.sortWFTByMaterials(WFTData);
 
-                    // print the results
-                    System.out.println("Most common winter color worn by men: " + colorResults.get("Male"));
-                    System.out.println("Most common winter color worn by women: " + colorResults.get("Female"));
-                    break;
+                        // Print results
+                        for (WinterFashionTrend w : WFTData) {
+                            System.out.println(w.getMaterial() + " - " + w.getBrand());
+                        }
+                        break;
 
-                case 3:
-                    System.out.println("You selected Operation 3.");
-                    break;
+                    case "2":
+                        // call the method from the processor
+                        Map<String, String> colorResults =
+                                WinterColorAnalysis.getAvgWinterColorByGender(WFTData, consumerData);
 
-                case 4:
-                    System.out.println("You selected Operation 4.");
-                    break;
+                        // print the results
+                        System.out.println("Most common winter color worn by men: " + colorResults.get("Male"));
+                        System.out.println("Most common winter color worn by women: " + colorResults.get("Female"));
+                        break;
 
-                case 5:
-                    System.out.println("You selected Operation 5.");
-                    break;
+                    case "3":
+                        System.out.print("\nEnter brand (Uniqlo, H&M, Mango): ");
+                        String item = scanner.nextLine().trim();
 
-                case 6:
-                    System.out.println("You selected Operation 6.");
-                    break;
+                        WinterComparison comp =
+                                AvgFashionPrices.computeWinterComparisonForItem(fashionBoutiqueData, item);
 
-                case 7:
-                    System.out.println("You selected Operation 7.");
-                    break;
+                        if (comp == null) {
+                            System.out.println("No items found for: " + item);
+                        } else {
+                            System.out.println("\nAverage price comparison for '" + item + "':");
+                            System.out.println("Winter Price average: " + comp.getWinterAvg());
+                            System.out.println("Non-Winter Price average: " + comp.getNonWinterAvg());
+                        }
 
-                default:
-                    System.out.println("Invalid choice. Please enter a number 1–7.");
+                        break;
+
+                    case "4":
+                        System.out.println("\nColor trends:");
+                        ColorTrends trends = new ColorTrends();
+                        Map<Season, String> results = trends.mostPopularColor(fashionBoutiqueData);
+
+                        for (Season s : results.keySet()) {
+                            System.out.println(s + " → Most popular color: " + results.get(s));
+                        }
+
+                        break;
+
+                    case "5":
+                        System.out.print("Enter year to filter (ex: 2023,2024,2025): ");
+                        int year = Integer.parseInt(scanner.nextLine().trim());
+
+                        System.out.print("Enter brand to filter (ex: Adidas, H&M, Uniqlo, Gucci, Mango, North Face): ");
+                        String brand = scanner.nextLine().trim();
+
+                        int count = BrandAndYear.countBrandByYear(originalWinterData, year, brand);
+
+                        System.out.println("\nResults:");
+                        System.out.println("Items for brand '" + brand + "' in year " + year + ": " + count);
+                        break;
+
+                    case "6":
+                        double avgAge = processor.getAverageAge(consumerData);
+                        System.out.println("Average Age of Consumers: " + avgAge);
+                        break;
+
+                    case "7":
+                        String winterBrand = brandProcessor.getPopWinterBrand(WFTData);
+                        String nonWinterBrand = brandProcessor.getPopNonWinterBrand(fashionBoutiqueData);
+                        System.out.println("Most Popular Winter Brand: " + winterBrand);
+                        System.out.println("Most Popular Non-Winter Brand: " + nonWinterBrand);
+                        break;
+
+                    default:
+                        System.out.println("Invalid choice. Please enter a number 1–8.");
+                }
             }
-
-        } catch (Exception e) {
-            System.out.println("Error loading datasets: " + e.getMessage());
+        } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
-    }
-
-//        fashionBoutiqueJSONReader reader = new fashionBoutiqueJSONReader();
-//        List<FashionBoutique> items = reader.readBoutique("fashionBoutiqueDS.json");
-//
-//        for(FashionBoutique fb : items){
-//            System.out.println("Category: " + fb.getCategory());
-//            System.out.println("Brand: " + fb.getBrand());
-//            System.out.println("Season: " + fb.getSeason());
-//            System.out.println("Size: " + fb.getSize());
-//            System.out.println("Color: " + fb.getColor());
-//            System.out.println("Original_price: " + fb.getOriginal_price());
-//            System.out.println("Current_price: " + fb.getCurrent_price());
-//            //added a spacer to see if it prints
-//            System.out.println("-------------------------------");
-//
-//        }
-
-//        WinterFashionTrendsDataReader wftreader = new WinterFashionTrendsDataReader();
-//        List<WinterFashionTrend> list = wftreader.read("WinterFashionTrendsDS.json");
-//
-//        for(WinterFashionTrend wft : list){
-//            System.out.println("Category: " + wft.getCategory());
-//            System.out.println("Brand: " + wft.getBrand());
-//            System.out.println("Season: " + wft.getSeason());
-//            System.out.println("Color: " + wft.getColor());
-//            //added a spacer to see if it prints
-//            System.out.println("-------------------------------");
-
-        //}
-    //}
 }
