@@ -10,11 +10,12 @@ public class WinterFashionTrend {
     private String gender;
     private String season;
     private double price;
-    private double popularity;
+    private int year;
+    //private double popularity;
 
     // constructor
     public WinterFashionTrend(String brand, String category, String color, String material,
-                              String style, String gender, String season) {
+                              String style, String gender, String season, double price) {
         this.brand = brand;
         this.category = category;
         this.color = color;
@@ -23,7 +24,7 @@ public class WinterFashionTrend {
         this.gender = gender;
         this.season = season;
         this.price = price;
-        this.popularity = popularity;
+        // this.popularity = popularity;
     }
 
     // getter methods
@@ -52,7 +53,14 @@ public class WinterFashionTrend {
     public double getPrice() {
         return price;
     }
-    public double getPopularity() {
-        return popularity;
+    public int getYear(){
+        return year;
     }
+    public void setYear(int year){
+        this.year = year;
+    }
+
+//    public double getPopularity() {
+//        return popularity;
+//    }
 }

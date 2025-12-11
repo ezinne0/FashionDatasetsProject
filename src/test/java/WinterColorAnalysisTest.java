@@ -17,8 +17,8 @@ class WinterColorAnalysisTest {
     @Test
     void testAvgWinterColorNormal() {
         List<WinterFashionTrend> wft = new ArrayList<>();
-        wft.add(new WinterFashionTrend("BrandA", "Coat", "Red", "Wool", "Casual", "Male", "Winter"));
-        wft.add(new WinterFashionTrend("BrandB", "Jacket", "Blue", "Polyester", "Formal", "Female", "Winter"));
+        wft.add(new WinterFashionTrend("BrandA", "Coat", "Red", "Wool", "Casual", "Male", "Winter", 50));
+        wft.add(new WinterFashionTrend("BrandB", "Jacket", "Blue", "Polyester", "Formal", "Female", "Winter", 50));
 
         List<ConsumerBehavior> consumers = new ArrayList<>();
         consumers.add(new ConsumerBehavior(25, "Male", "Coat", "Coats", 100, "NY", "M", "Red", "Winter"));
@@ -42,7 +42,7 @@ class WinterColorAnalysisTest {
     @Test
     void testNonWinterItemsSkipped() {
         List<WinterFashionTrend> wft = new ArrayList<>();
-        wft.add(new WinterFashionTrend("BrandA", "Coat", "Red", "Wool", "Casual", "Male", "Summer"));
+        wft.add(new WinterFashionTrend("BrandA", "Coat", "Red", "Wool", "Casual", "Male", "Summer", 40));
         List<ConsumerBehavior> consumers = new ArrayList<>();
         consumers.add(new ConsumerBehavior(25, "Male", "Coat", "Coats", 100, "NY", "M", "Red", "Fall"));
 
@@ -56,8 +56,8 @@ class WinterColorAnalysisTest {
     @Test
     void testGenderVariations() {
         List<WinterFashionTrend> wft = new ArrayList<>();
-        wft.add(new WinterFashionTrend("BrandA", "Coat", "Black", "Wool", "Casual", "Man", "Winter"));
-        wft.add(new WinterFashionTrend("BrandB", "Jacket", "White", "Polyester", "Formal", "Woman", "Winter"));
+        wft.add(new WinterFashionTrend("BrandA", "Coat", "Black", "Wool", "Casual", "Man", "Winter", 40));
+        wft.add(new WinterFashionTrend("BrandB", "Jacket", "White", "Polyester", "Formal", "Woman", "Winter", 40));
 
         List<ConsumerBehavior> consumers = new ArrayList<>();
         consumers.add(new ConsumerBehavior(25, "Men", "Coat", "Coats", 100, "NY", "M", "Black", "Winter"));
@@ -73,9 +73,9 @@ class WinterColorAnalysisTest {
     @Test
     void testNullFieldsInWFT() {
         List<WinterFashionTrend> wft = new ArrayList<>();
-        wft.add(new WinterFashionTrend("BrandA", "Coat", null, "Wool", "Casual", "Male", "Winter"));
-        wft.add(new WinterFashionTrend("BrandB", "Jacket", "Blue", "Polyester", "Formal", null, "Winter"));
-        wft.add(new WinterFashionTrend("BrandC", "Scarf", "Red", "Cotton", "Casual", "Female", null));
+        wft.add(new WinterFashionTrend("BrandA", "Coat", null, "Wool", "Casual", "Male", "Winter", 50));
+        wft.add(new WinterFashionTrend("BrandB", "Jacket", "Blue", "Polyester", "Formal", null, "Winter", 50));
+        wft.add(new WinterFashionTrend("BrandC", "Scarf", "Red", "Cotton", "Casual", "Female", null, 50));
 
         Map<String, String> result = WinterColorAnalysis.getAvgWinterColorByGender(wft, new ArrayList<>());
 
@@ -101,8 +101,8 @@ class WinterColorAnalysisTest {
     @Test
     void testColorTie() {
         List<WinterFashionTrend> wft = new ArrayList<>();
-        wft.add(new WinterFashionTrend("BrandA", "Coat", "Red", "Wool", "Casual", "Male", "Winter"));
-        wft.add(new WinterFashionTrend("BrandB", "Coat", "Blue", "Wool", "Casual", "Male", "Winter"));
+        wft.add(new WinterFashionTrend("BrandA", "Coat", "Red", "Wool", "Casual", "Male", "Winter", 20));
+        wft.add(new WinterFashionTrend("BrandB", "Coat", "Blue", "Wool", "Casual", "Male", "Winter", 20));
 
         Map<String, String> result = WinterColorAnalysis.getAvgWinterColorByGender(wft, new ArrayList<>());
 

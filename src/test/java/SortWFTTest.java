@@ -13,7 +13,7 @@ class SortWFTTest {
     // Helper method to build a WinterFashionTrend using only the material field
     private WinterFashionTrend wft(String material) {
         return new WinterFashionTrend(
-                "brand", "category", "color", material, "style", "gender", "Winter"
+                "brand", "category", "color", material, "style", "gender", "Winter", 50
         );
     }
 

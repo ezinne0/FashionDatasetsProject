@@ -44,7 +44,7 @@ public class WinterFashionTrendsDataReader {
 
 
             // create WinterFashionTrend object
-            WinterFashionTrend wft = new WinterFashionTrend(brand, category, color, material, style, gender, season);
+            WinterFashionTrend wft = new WinterFashionTrend(brand, category, color, material, style, gender, season, price);
             winterFashionTrends.add(wft);
         }
         return winterFashionTrends;
