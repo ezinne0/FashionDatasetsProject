@@ -12,6 +12,7 @@ import fashionrelations.processor.*;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -75,11 +76,26 @@ public class Main {
                 switch (choice) {
                     case "1":
                         System.out.println("\nSorting by most popular materials...");
-                        SortWFT.sortWFTByMaterials(WFTData);
+                        // get singleton instance and sort
+                        SortWFT.getInstance().sortWFTByMaterials(WFTData);
 
-                        // Print results
+                        // keep track of each material's frequency
+                        Map<String, Integer> materialFrequency = new HashMap<>();
                         for (WinterFashionTrend w : WFTData) {
-                            System.out.println(w.getMaterial() + " - " + w.getBrand());
+                            String material = w.getMaterial();
+                            materialFrequency.put(material, materialFrequency.getOrDefault(material, 0) + 1);
+                        }
+
+                        // total number of items
+                        int total = WFTData.size();
+
+                        // Print unique materials with percentages
+                        System.out.println("Material | Percentage");
+                        for (Map.Entry<String, Integer> entry : materialFrequency.entrySet()) {
+                            String material = entry.getKey();
+                            double percentage = (entry.getValue() * 100.0) / total;
+                            // fancy f-string formatting so it's easy on the eyes
+                            System.out.println(material + " — " + String.format("%.2f", percentage) + "%");
                         }
                         break;
 

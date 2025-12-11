@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SortWFTTest {
 
-    // Helper method to build a WinterFashionTrend using only the material field
+    // build a WinterFashionTrend using only the material field
     private WinterFashionTrend wft(String material) {
         return new WinterFashionTrend(
                 "brand", "category", "color", material, "style", "gender", "Winter", 50

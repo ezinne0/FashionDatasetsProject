@@ -6,6 +6,20 @@ import java.util.*;
 
 public class SortWFT {
 
+    // singleton implementation
+    private static SortWFT instance;
+
+    // private constructor
+    private SortWFT() {}
+
+    // public method to access the singleton
+    public static SortWFT getInstance() {
+        if (instance == null) {
+            instance = new SortWFT();
+        }
+        return instance;
+    }
+
     // method takes in list of WinterFashionTrendObjects
     public static void sortWFTByMaterials(List<WinterFashionTrend> trends) {
 

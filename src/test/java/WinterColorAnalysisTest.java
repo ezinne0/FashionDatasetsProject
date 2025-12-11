@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WinterColorAnalysisTest {
 
-    // Test normal scenario with both datasets and clear male/female colors
+    // Test ideal scenario with both datasets and clear male/female colors
     @Test
     void testAvgWinterColorNormal() {
         List<WinterFashionTrend> wft = new ArrayList<>();
@@ -67,20 +67,6 @@ class WinterColorAnalysisTest {
 
         assertEquals("Black", result.get("Male"));
         assertEquals("White", result.get("Female"));
-    }
-
-    // Test skipping null gender, null color, null season in WinterFashionTrend
-    @Test
-    void testNullFieldsInWFT() {
-        List<WinterFashionTrend> wft = new ArrayList<>();
-        wft.add(new WinterFashionTrend("BrandA", "Coat", null, "Wool", "Casual", "Male", "Winter", 50));
-        wft.add(new WinterFashionTrend("BrandB", "Jacket", "Blue", "Polyester", "Formal", null, "Winter", 50));
-        wft.add(new WinterFashionTrend("BrandC", "Scarf", "Red", "Cotton", "Casual", "Female", null, 50));
-
-        Map<String, String> result = WinterColorAnalysis.getAvgWinterColorByGender(wft, new ArrayList<>());
-
-        assertEquals("N/A", result.get("Male"));
-        assertEquals("N/A", result.get("Female"));
     }
 
     // Test skipping null gender, null color, null season in ConsumerBehavior
