@@ -26,11 +26,13 @@ public class WinterColorAnalysis {
             if (t.getSeason() == null || !t.getSeason().toLowerCase().contains("winter")) continue;
 
             // extract color + gender
-            String gender = t.getGender().toLowerCase(); // too late to check here!! move below
             String color = t.getColor();
+            String gender = t.getGender();
 
-            // any missing info? skip that iteration #errorHandled.
+            // check both for null
             if (gender == null || color == null) continue;
+
+            gender = gender.toLowerCase();
 
             // add counts in maps based on gender
             if (gender.equals("male") || gender.equals("man") || gender.equals("men")) {
