@@ -26,7 +26,7 @@ public class WinterColorAnalysis {
             if (t.getSeason() == null || !t.getSeason().toLowerCase().contains("winter")) continue;
 
             // extract color + gender
-            String gender = t.getGender().toLowerCase();
+            String gender = t.getGender().toLowerCase(); // too late to check here!! move below
             String color = t.getColor();
 
             // any missing info? skip that iteration #errorHandled.

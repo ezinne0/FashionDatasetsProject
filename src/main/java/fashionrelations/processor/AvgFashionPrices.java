@@ -78,6 +78,7 @@ public class AvgFashionPrices {
     Only items matching the brand also case sensitive are evaluated
     Returns null if the brand has no items at all.
      */
+    // uncovered by test
     public static WinterComparison computeWinterComparisonForItem(List<FashionBoutique> items, String brand){
         double winterTotal = 0;
         int winterCount = 0;

@@ -12,8 +12,8 @@ public class BrandAndYear {
      */
 
         public static int countBrandByYear(List<WinterFashionTrend> items, int year, String brand) {
-            if (brand == null) {
-                throw new NullPointerException("Brand cannot be null");
+            if (brand == null || items == null) {
+                throw new IllegalArgumentException("Brand cannot be null"); // so the caller knows its their fault
             }
 
 

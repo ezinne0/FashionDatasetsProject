@@ -98,7 +98,23 @@ public class AvgFashionPricesTest {
 
         assertEquals(70.0, AvgFashionPrices.averageForCategory(items, "dress"), 0.0001);
     }
+
+    @Test
+    public void testComputeWinterComparisonForItem_Basic() {
+        List<FashionBoutique> items = Arrays.asList(
+                new FashionBoutique("dress", "Adidas", Season.WINTER, "M", "Black", 100.0, 90.0),
+                new FashionBoutique("top", "Adidas", Season.SUMMER, "L", "White", 50.0, 45.0),
+                new FashionBoutique("shoes", "Nike", Season.WINTER, "10", "Red", 120.0, 110.0) // ignored
+        );
+        WinterComparison comp =
+                AvgFashionPrices.computeWinterComparisonForItem(items, "Adidas");
+
+        assertEquals(100.0, comp.getWinterAvg(), 0.0001);
+        assertEquals(50.0, comp.getNonWinterAvg(), 0.0001);
+    }
 }
+
+
 
 
 

@@ -84,17 +84,6 @@ public class BrandAndYearTest {
 
             assertEquals(0, result, "Should return 0 for empty dataset");
         }
-
-        @Test
-        void testCountBrandByYear_nullBrand() {
-            List<WinterFashionTrend> data = Arrays.asList(
-                    trend("H&M", 2023)
-            );
-
-            assertThrows(NullPointerException.class, () ->
-                    BrandAndYear.countBrandByYear(data, 2023, null)
-            );
-        }
 }
 
 

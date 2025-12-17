@@ -140,17 +140,50 @@ public class Main {
                         break;
 
                     case "5":
-                        System.out.print("Enter year to filter (ex: 2023,2024,2025): ");
-                        int year = Integer.parseInt(scanner.nextLine().trim());
+                        try {
+                            System.out.print("Enter year to filter (ex: 2023, 2024, 2025): ");
+                            int year;
 
-                        System.out.print("Enter brand to filter (ex: Adidas, H&M, Uniqlo, Gucci, Mango, North Face): ");
-                        String brand = scanner.nextLine().trim();
+                            try {
+                                // catch any invalid datatype passing (when they don't pass a NUMBER)
+                                year = Integer.parseInt(scanner.nextLine().trim());
+                            } catch (NumberFormatException e) {
+                                throw new IllegalArgumentException("Year must be a valid number.", e);
+                            }
 
-                        int count = BrandAndYear.countBrandByYear(originalWinterData, year, brand);
+                            // check that the year they entered is actually one of the options
+                            if (year != 2023 && year != 2024 && year != 2025) {
+                                throw new IllegalArgumentException("Invalid year. Year must be 2023, 2024, or 2025.");
+                            }
 
-                        System.out.println("\nResults:");
-                        System.out.println("Items for brand '" + brand + "' in year " + year + ": " + count);
-                        break;
+                            System.out.print("Enter brand to filter (ex: Adidas, H&M, Uniqlo, Gucci, Mango, North Face): ");
+                            String brand = scanner.nextLine().trim();
+
+                            // check that the brand they entered is actually an option
+                            if (
+                                    !brand.equalsIgnoreCase("Adidas") &&
+                                            !brand.equalsIgnoreCase("H&M") &&
+                                            !brand.equalsIgnoreCase("Uniqlo") &&
+                                            !brand.equalsIgnoreCase("Gucci") &&
+                                            !brand.equalsIgnoreCase("Mango") &&
+                                            !brand.equalsIgnoreCase("North Face")
+                            ) {
+                                throw new IllegalArgumentException( // if they pass something that's not an option
+                                        "Invalid brand. Allowed brands: Adidas, H&M, Uniqlo, Gucci, Mango, North Face."
+                                );
+                            }
+
+                            int count = BrandAndYear.countBrandByYear(originalWinterData, year, brand);
+
+                            System.out.println("\nResults:");
+                            System.out.println("Items for brand '" + brand + "' in year " + year + ": " + count);
+                            break;
+                        }
+                        // catch anything that may have slipped through the cracks
+                        catch (IllegalArgumentException e) {
+
+                            throw e;
+                        }
 
                     case "6":
                         double avgAge = processor.getAverageAge(consumerData);

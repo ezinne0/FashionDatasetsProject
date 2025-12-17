@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WinterFashionTrendsDataReader {
-
+// puut this in a try/catch - throw and catch her OR throw and then catch in main
     public static List<WinterFashionTrend> read(String filename) throws IOException, ParseException {
         // array of WinterFashionTrend objects we will return
         List<WinterFashionTrend> winterFashionTrends = new ArrayList<>();
