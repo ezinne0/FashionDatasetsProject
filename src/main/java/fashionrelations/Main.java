@@ -120,7 +120,8 @@ public class Main {
 
                         if (comp == null) {
                             System.out.println("No items found for: " + item);
-                        } else {
+                        }
+                        else {
                             System.out.println("\nAverage price comparison for '" + item + "':");
                             System.out.println("Winter Price average: " + comp.getWinterAvg());
                             System.out.println("Non-Winter Price average: " + comp.getNonWinterAvg());
@@ -150,15 +151,14 @@ public class Main {
 
                                 try {
                                     year = Integer.parseInt(scanner.nextLine().trim());
-                                } catch (NumberFormatException e) { // throw this if they enter something that's not a number
+                                }
+                                catch (NumberFormatException e) { // throw this if they enter something that's not a number
                                     throw new IllegalArgumentException("Year must be a valid number.");
                                 }
 
                                 if (year != 2023 && year != 2024 && year != 2025) {
-                                    throw new IllegalArgumentException(
-                                            // throw this if they enter something that's a number, but not one of the year options
-                                            "Invalid year. Year must be 2023, 2024, or 2025."
-                                    );
+                                    // throw this if they enter something that's a number, but not one of the year options
+                                    throw new IllegalArgumentException("Invalid year. Year must be 2023, 2024, or 2025.");
                                 }
                                 // prompt user to enter brand
                                 System.out.print("Enter brand to filter (ex: Adidas, H&M, Uniqlo, Gucci, Mango, North Face): ");
@@ -171,23 +171,19 @@ public class Main {
                                                 !brand.equalsIgnoreCase("Uniqlo") &&
                                                 !brand.equalsIgnoreCase("Gucci") &&
                                                 !brand.equalsIgnoreCase("Mango") &&
-                                                !brand.equalsIgnoreCase("North Face")
-                                ) {
-                                    throw new IllegalArgumentException(
-                                            "Invalid brand. Allowed brands: Adidas, H&M, Uniqlo, Gucci, Mango, North Face."
-                                    );
+                                                !brand.equalsIgnoreCase("North Face")) {
+                                    throw new IllegalArgumentException("Invalid brand. Allowed brands: Adidas, H&M, Uniqlo, Gucci, Mango, North Face.");
                                 }
                                 // save the number of times user's input brand came up based on user's input year
                                 int count = BrandAndYear.countBrandByYear(originalWinterData, year, brand);
 
                                 System.out.println("\nResults:");
-                                System.out.println(
-                                        "Items for brand '" + brand + "' in year " + year + ": " + count
-                                );
+                                System.out.println("Items for brand '" + brand + "' in year " + year + ": " + count);
 
                                 validInput = true;
                             // catch anything that slipped thru the cracks
-                            } catch (IllegalArgumentException e) {
+                            }
+                            catch (IllegalArgumentException e) {
                                 // show error and loop again
                                 System.out.println("Error: " + e.getMessage());
                                 System.out.println("Please try again.\n");
@@ -211,8 +207,9 @@ public class Main {
                         System.out.println("Invalid choice. Please enter a number 1–8.");
                 }
             }
-        } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
         }
+        catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
